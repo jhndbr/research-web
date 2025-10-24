@@ -2,7 +2,7 @@
 
 Una plataforma web moderna y completa para la gestión y difusión del trabajo académico, organización y administración de investigaciones académicas y libros, con un sistema robusto de gestión de contenido y panel administrativo.
 
-## 🚀 Características
+## Características
 
 - **Portfolio Académico**: Presentación profesional del trabajo de investigación
 - **Gestión de Investigaciones**: Sistema completo para organizar y mostrar papers académicos
@@ -14,7 +14,7 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 - **Base de Datos**: PostgreSQL con Prisma ORM
 - **SEO Optimizado**: Metadatos y Open Graph configurados
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 ### Frontend
 - **Next.js 14** - Framework de React con App Router
@@ -36,13 +36,13 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 - **PostCSS** - Procesador de CSS
 - **tsx** - Ejecutor de TypeScript
 
-## 📋 Prerrequisitos
+## Prerrequisitos
 
 - Node.js 18+ 
 - PostgreSQL
 - npm o yarn
 
-## 🚀 Instalación
+## Instalación
 
 1. **Clonar el repositorio**
    ```bash
@@ -95,7 +95,7 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 
    La aplicación estará disponible en `http://localhost:3000`
 
-## 📝 Scripts Disponibles
+## Scripts Disponibles
 
 - `npm run dev` - Ejecutar en modo desarrollo
 - `npm run build` - Construir para producción
@@ -106,7 +106,7 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 - `npm run db:seed` - Poblar base de datos con datos de ejemplo
 - `npm run db:studio` - Abrir Prisma Studio
 
-## 🗄️ Estructura de la Base de Datos
+##  Estructura de la Base de Datos
 
 ### Modelos Principales
 
@@ -123,38 +123,21 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 - **Auditoría**: Timestamps de creación y actualización
 - **Relaciones**: Sistema de autores y publicaciones
 
-## 🎨 Componentes UI
-
-- **Navbar**: Navegación principal con tema responsive
-- **HeroSection**: Sección principal de presentación
-- **ResearchPreview**: Vista previa de investigaciones
-- **ResearchGrid**: Grid de investigaciones con filtros
-- **ResearchFilters**: Sistema de filtrado avanzado
-- **Footer**: Pie de página con enlaces
-
-## 🔐 Autenticación
-
-El sistema incluye autenticación con NextAuth.js soportando:
-- Autenticación por email/contraseña
-- OAuth (Google, GitHub)
-- Roles de usuario (USER, ADMIN, MODERATOR)
-- Sesiones seguras
-
-## 📱 Responsive Design
+## Responsive Design
 
 - Diseño mobile-first
 - Breakpoints optimizados
 - Navegación adaptativa
 - Componentes flexibles
 
-## 🌙 Temas
+## Temas
 
 - Soporte para tema claro y oscuro
 - Persistencia de preferencias
 - Transiciones suaves
 - Componentes adaptativos
 
-## 🚀 Despliegue
+## Despliegue
 
 ### Vercel (Recomendado)
 
@@ -168,14 +151,14 @@ El sistema incluye autenticación con NextAuth.js soportando:
 - **Railway**: Con soporte para PostgreSQL
 - **DigitalOcean**: App Platform
 
-## 📊 Monitoreo y Analytics
+## Monitoreo y Analytics
 
 - Metadatos SEO optimizados
 - Open Graph configurado
 - Twitter Cards
 - Estructura de datos semántica
 
-## 🤝 Contribución
+## Contribución
 
 1. Fork el proyecto
 2. Crear rama para feature (`git checkout -b feature/AmazingFeature`)
@@ -183,21 +166,7 @@ El sistema incluye autenticación con NextAuth.js soportando:
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abrir Pull Request
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
-## 👨‍💻 Autor
-
-**Dr. Cristiano De Angelis**
-- Freelance researcher at Skema Business School, France
-- Expert in Knowledge Management and Organizational Intelligence
-- Website: [cristianodeangelis.com](https://cristianodeangelis.com)
-
-## 📞 Contacto
-
-Para consultas sobre el proyecto o colaboraciones académicas, contactar a través del formulario en el sitio web.
-
----
-
-⭐ Si este proyecto te resulta útil, considera darle una estrella en GitHub.
