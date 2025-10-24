@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 203 100% 16%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 203 100% 16%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 203 100% 7%;
+    --foreground: 210 40% 98%;
+    --card: 203 100% 7%;
+    --card-foreground: 210 40% 98%;
+    --popover: 203 100% 7%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 203 100% 16%;
+    --secondary: 203 100% 13%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 203 100% 13%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 203 100% 13%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 203 100% 13%;
+    --input: 203 100% 13%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, #003554 0%, #00171f 100%);
+    min-height: 100vh;
+  }
+}
+
+/* Glass morphism effects */
+.glass {
+  @apply backdrop-blur-lg bg-white/10 border border-white/20;
+}
+
+.glass-card {
+  @apply backdrop-blur-lg bg-white/5 border border-white/10 rounded-lg shadow-xl;
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(45deg, #ffffff, #7598AE, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-500;
+}
+
+/* Academic paper card animations */
+.paper-card {
+  @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+}
+
+.paper-card:hover {
+  @apply bg-white/10;
+}
+
+/* Navigation styles */
+.nav-blur {
+  @apply backdrop-blur-md bg-primary-900/80;
+}
+
+/* Loading animations */
+.loading-dots {
+  @apply inline-flex;
+}
+
+.loading-dots span {
+  @apply w-2 h-2 mx-1 bg-white rounded-full animate-pulse;
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+/* Form styles */
+.form-floating {
+  @apply relative;
+}
+
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+  @apply transform -translate-y-4 scale-75 text-primary-300;
+}
+
+.form-floating label {
+  @apply absolute left-3 top-3 transition-all duration-200 pointer-events-none text-white/70;
+}
+
+/* Button ripple effect */
+.btn-ripple {
+  @apply relative overflow-hidden;
+}
+
+.btn-ripple::before {
+  content: '';
+  @apply absolute inset-0 bg-white/20 transform scale-0 rounded-full transition-transform duration-300;
+}
+
+.btn-ripple:active::before {
+  @apply scale-100;
+}
+
+/* Research filter animations */
+.filter-tag {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/10 border border-white/20 transition-all duration-200;
+}
+
+.filter-tag:hover {
+  @apply bg-white/20 border-white/40;
+}
+
+.filter-tag.active {
+  @apply bg-primary-600 border-primary-400 text-white;
+}

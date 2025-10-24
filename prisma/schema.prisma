@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+  
+  // Research papers authored by this user
+  researchPapers ResearchPaper[]
+  
+  // Books authored by this user
+  books Book[]
+  
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+model ResearchPaper {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  url         String
+  continent   String
+  specialty   String
+  country     String
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Author relation
+  authorId    String?
+  author      User?    @relation(fields: [authorId], references: [id])
+  
+  // SEO and metadata
+  slug        String   @unique
+  keywords    String[] @default([])
+  citations   Int      @default(0)
+  views       Int      @default(0)
+  
+  @@map("research_papers")
+}
+
+model Book {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  imageUrl    String?
+  purchaseUrl String?
+  country     String
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Author relation
+  authorId    String?
+  author      User?    @relation(fields: [authorId], references: [id])
+  
+  // Additional metadata
+  isbn        String?
+  publisher   String?
+  year        Int?
+  language    String   @default("en")
+  slug        String   @unique
+  
+  @@map("books")
+}
+
+model ContactSubmission {
+  id        String            @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String            @db.Text
+  status    SubmissionStatus  @default(PENDING)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  
+  @@map("contact_submissions")
+}
+
+enum SubmissionStatus {
+  PENDING
+  REVIEWED
+  RESPONDED
+  ARCHIVED
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+  
+  @@map("site_settings")
+}
