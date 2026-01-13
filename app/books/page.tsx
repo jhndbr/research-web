@@ -71,7 +71,7 @@ export default async function BooksPage() {
                 {/* Book Info */}
                 <div className="flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-lg">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+                    <span className="text-lg">🏴󠁧󠁢󠁥󠁮󠁧</span>
                     <span className="text-white font-medium">{book.country}</span>
                   </div>
 
@@ -85,9 +85,6 @@ export default async function BooksPage() {
 
                   {/* Book Metadata */}
                   <div className="space-y-2 mb-6 text-xs text-white/60">
-                    {book.publisher && (
-                      <div>Publisher: {book.publisher}</div>
-                    )}
                     {book.year && (
                       <div>Year: {book.year}</div>
                     )}
