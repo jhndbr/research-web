@@ -3,6 +3,7 @@ import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { prisma } from '@/lib/prisma'
+import { Globe } from 'lucide-react'
 
 export const metadata = {
   title: 'Books - Dr. Cristiano De Angelis',
@@ -32,79 +33,89 @@ export default async function BooksPage() {
   const books = await getBooks()
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <Navbar />
       
       <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">
+          <div className="text-center mb-16 pb-8 border-b border-gray-200">
+            <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4">
               Published Books
             </h1>
-            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-              Explore the academic publications by Dr. Cristiano Trindade De Angelis, focusing on 
-              Knowledge Management, Organizational Intelligence, and Public Administration.
+            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Academic publications on Knowledge Management, Organizational Intelligence, 
+              and Public Administration
             </p>
           </div>
 
           {/* Books Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {books.map((book) => (
-              <div
+              <article
                 key={book.id}
-                className="glass-card p-6 flex flex-col h-full hover:bg-white/10 transition-all duration-300"
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-gray-300 transition-all flex flex-col h-full"
               >
                 {/* Book Image */}
                 {book.imageUrl && (
-                  <div className="mb-6 text-center">
+                  <div className="bg-gray-50 p-8 flex items-center justify-center border-b border-gray-200">
                     <Image
                       src={book.imageUrl}
                       alt={`Book cover: ${book.title}`}
-                      width={200}
-                      height={300}
-                      className="mx-auto rounded-lg shadow-lg"
+                      width={180}
+                      height={270}
+                      className="rounded shadow-md"
                     />
                   </div>
                 )}
 
                 {/* Book Info */}
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-lg">🏴󠁧󠁢󠁥󠁮󠁧</span>
-                    <span className="text-white font-medium">{book.country}</span>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-4 text-xs">
+                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded font-medium">
+                      {book.country}
+                    </span>
+                    {book.year && (
+                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded font-medium">
+                        {book.year}
+                      </span>
+                    )}
                   </div>
 
-                  <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2">
+                  <h3 className="text-lg font-serif font-bold text-gray-900 mb-3 leading-tight">
                     {book.title}
                   </h3>
 
-                  <p className="text-white/80 text-sm mb-4 flex-1">
+                  <p className="text-sm text-gray-600 mb-4 flex-1 leading-relaxed">
                     {book.description}
                   </p>
 
                   {/* Book Metadata */}
-                  <div className="space-y-2 mb-6 text-xs text-white/60">
-                    {book.year && (
-                      <div>Year: {book.year}</div>
-                    )}
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-t border-gray-100 pt-4 text-xs text-gray-600">
                     {book.language && (
-                      <div>Language: {book.language === 'en' ? 'English' : book.language === 'pt' ? 'Portuguese' : 'Spanish'}</div>
+                      <div className="flex items-center gap-1">
+                        <Globe className="h-3.5 w-3.5" />
+                        <span>{book.language === 'en' ? 'English' : book.language === 'pt' ? 'Portuguese' : 'Spanish'}</span>
+                      </div>
+                    )}
+                    {book.publisher && (
+                      <span>• {book.publisher}</span>
                     )}
                   </div>
 
                   {/* Purchase Button */}
                   {book.purchaseUrl && (
-                    <Button
-                      onClick={() => window.open(book.purchaseUrl, '_blank')}
-                      className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+                    <a
+                      href={book.purchaseUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center py-3 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white rounded font-medium transition-colors text-sm"
                     >
-                      <span className="mr-2">📖</span>
-                      View Book
-                    </Button>
+                      View Book Details
+                    </a>
                   )}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
 
@@ -112,10 +123,10 @@ export default async function BooksPage() {
           {books.length === 0 && (
             <div className="text-center py-12">
               <div className="glass-card p-8 max-w-md mx-auto">
-                <h3 className="text-xl font-semibold text-white mb-4">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
                   No books available
                 </h3>
-                <p className="text-white/70">
+                <p className="text-gray-600">
                   Book publications will be displayed here when available.
                 </p>
               </div>

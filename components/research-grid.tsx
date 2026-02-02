@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 interface ResearchPaper {
   id: string
@@ -26,74 +26,75 @@ export function ResearchGrid({ papers }: ResearchGridProps) {
     return (
       <div className="text-center py-12">
         <div className="glass-card p-8 max-w-md mx-auto">
-          <h3 className="text-xl font-semibold text-white mb-4">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
             No se encontraron resultados
           </h3>
-          <p className="text-white/70 mb-6">
+          <p className="text-gray-600 mb-6">
             No hay investigaciones que coincidan con los criterios de búsqueda actuales.
           </p>
-          <Button 
-            onClick={() => window.location.href = '/research'}
-            variant="outline"
-            className="border-white/20 hover:bg-white/10"
+          <Link 
+            href="/research"
+            className="inline-block px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
           >
             Ver todas las investigaciones
-          </Button>
+          </Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 gap-6">
       {papers.map((paper) => (
-        <div
+        <article
           key={paper.id}
-          className="glass-card p-6 hover:bg-white/10 transition-all duration-300 paper-card"
+          className="bg-white border border-gray-200 hover:border-gray-300 rounded-lg p-6 transition-all hover:shadow-sm"
         >
-          <div className="flex flex-col h-full">
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold text-white mb-2 line-clamp-2">
-                  {paper.title}
-                </h3>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="filter-tag text-xs">
-                    {paper.continent}
-                  </span>
-                  <span className="filter-tag text-xs">
-                    {paper.country}
-                  </span>
-                  <span className="filter-tag text-xs">
-                    {paper.specialty}
-                  </span>
-                </div>
+          <div className="flex flex-col">
+            {/* Header */}
+            <div className="mb-4">
+              <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 leading-tight hover:text-gray-700 transition-colors">
+                {paper.title}
+              </h3>
+              <div className="flex flex-wrap gap-2 text-xs">
+                <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                  {paper.continent}
+                </span>
+                <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                  {paper.country}
+                </span>
+                <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                  {paper.specialty}
+                </span>
               </div>
             </div>
             
-            <p className="text-white/80 text-sm mb-6 flex-1 line-clamp-4">
+            {/* Abstract */}
+            <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
               {paper.description}
             </p>
             
-            <div className="flex items-center justify-between">
-              <div className="text-xs text-white/60">
-                {new Date(paper.publishedAt).toLocaleDateString('es-ES', {
+            {/* Footer */}
+            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+              <time className="text-xs text-gray-500 font-medium">
+                {new Date(paper.publishedAt).toLocaleDateString('en-US', {
                   year: 'numeric',
-                  month: 'long'
+                  month: 'long',
+                  day: 'numeric'
                 })}
-              </div>
+              </time>
               
-              <Button
-                onClick={() => window.open(paper.url, '_blank')}
-                variant="outline"
-                size="sm"
-                className="border-white/20 hover:bg-white/10 text-white"
+              <a
+                href={paper.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
               >
-                Leer artículo
-              </Button>
+                Read paper →
+              </a>
             </div>
           </div>
-        </div>
+        </article>
       ))}
     </div>
   )

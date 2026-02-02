@@ -62,44 +62,51 @@ export default async function ResearchPage({
   const papers = await getResearchPapers(searchParams)
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <Navbar />
       
       <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 gradient-text">
+          <div className="text-center mb-16 pb-8 border-b border-gray-200">
+            <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4">
               Research Publications
             </h1>
-            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-              Explore academic research by Dr. Cristiano De Angelis across multiple countries and disciplines
+            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
+              Academic research across multiple countries and disciplines
             </p>
             
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="glass-card p-6">
-                <div className="text-3xl font-bold text-white mb-2">{papers.length}+</div>
-                <div className="text-white/70">Publications</div>
+            {/* Academic Metrics */}
+            <div className="flex justify-center items-center gap-8 flex-wrap text-sm">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 mb-1">{papers.length}</div>
+                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Publications</div>
               </div>
-              <div className="glass-card p-6">
-                <div className="text-3xl font-bold text-white mb-2">15+</div>
-                <div className="text-white/70">Countries</div>
+              <div className="h-8 w-px bg-gray-300" />
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 mb-1">15</div>
+                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Countries</div>
               </div>
-              <div className="glass-card p-6">
-                <div className="text-3xl font-bold text-white mb-2">5</div>
-                <div className="text-white/70">Continents</div>
+              <div className="h-8 w-px bg-gray-300" />
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 mb-1">6</div>
+                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Continents</div>
+              </div>
+              <div className="h-8 w-px bg-gray-300" />
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 mb-1">7</div>
+                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Specialties</div>
               </div>
             </div>
           </div>
 
           {/* Filters */}
-          <Suspense fallback={<div className="text-center text-white">Loading filters...</div>}>
+          <Suspense fallback={<div className="text-center text-gray-600">Loading filters...</div>}>
             <ResearchFilters />
           </Suspense>
 
           {/* Results */}
-          <Suspense fallback={<div className="text-center text-white">Loading research papers...</div>}>
+          <Suspense fallback={<div className="text-center text-gray-600">Loading research papers...</div>}>
             <ResearchGrid papers={papers} />
           </Suspense>
         </div>
