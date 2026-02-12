@@ -39,8 +39,8 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 ## Prerrequisitos
 
 - Node.js 18+ 
-- PostgreSQL
 - npm o yarn
+- Cuenta en [Supabase](https://supabase.com) (gratis)
 
 ## Instalación
 
@@ -55,40 +55,46 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
    npm install
    ```
 
-3. **Configurar variables de entorno**
+3. **Configurar Supabase**
+   
+   a. Crear un nuevo proyecto en [Supabase](https://supabase.com)
+   
+   b. Ir a **Settings** → **Database** → **Connection string**
+   
+   c. Copiar ambas URLs (Pooling y Direct)
+
+4. **Configurar variables de entorno**
    ```bash
    cp .env.example .env.local
    ```
    
-   Editar `.env.local` con las siguientes variables:
+   Editar `.env.local` con tus credenciales:
    ```env
-   # Base de datos
-   DATABASE_URL="postgresql://username:password@localhost:5432/research_web"
+   # Database - Supabase
+   DATABASE_URL="postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@aws-0-us-west-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+   DIRECT_URL="postgresql://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
    
    # NextAuth.js
    NEXTAUTH_URL="http://localhost:3000"
-   NEXTAUTH_SECRET="your-secret-key"
+   NEXTAUTH_SECRET="genera-un-secret-con-openssl-rand-base64-32"
    
-   # Proveedores de autenticación (opcional)
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
-   GITHUB_CLIENT_ID="your-github-client-id"
-   GITHUB_CLIENT_SECRET="your-github-client-secret"
+   # Proveedores OAuth (opcional)
+   GOOGLE_CLIENT_ID=""
+   GOOGLE_CLIENT_SECRET=""
+   GITHUB_CLIENT_ID=""
+   GITHUB_CLIENT_SECRET=""
    ```
 
-4. **Configurar la base de datos**
+5. **Configurar la base de datos**
    ```bash
    # Generar el cliente de Prisma
    npx prisma generate
    
-   # Ejecutar migraciones
-   npm run db:migrate
-   
-   # Poblar la base de datos con datos de ejemplo
-   npm run db:seed
+   # Crear las tablas en Supabase
+   npx prisma db push
    ```
 
-5. **Ejecutar en modo desarrollo**
+6. **Ejecutar en modo desarrollo**
    ```bash
    npm run dev
    ```
@@ -101,9 +107,8 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 - `npm run build` - Construir para producción
 - `npm run start` - Ejecutar en modo producción
 - `npm run lint` - Ejecutar linter
-- `npm run db:push` - Sincronizar esquema con la base de datos
-- `npm run db:migrate` - Ejecutar migraciones
-- `npm run db:seed` - Poblar base de datos con datos de ejemplo
+- `npm run db:push` - Sincronizar esquema con la base de datos (Supabase)
+- `npm run db:generate` - Generar cliente de Prisma
 - `npm run db:studio` - Abrir Prisma Studio
 
 ##  Estructura de la Base de Datos
@@ -139,17 +144,34 @@ Una plataforma web moderna y completa para la gestión y difusión del trabajo a
 
 ## Despliegue
 
-### Vercel (Recomendado)
+### Vercel + Supabase (Recomendado)
 
-1. Conectar repositorio a Vercel
-2. Configurar variables de entorno
-3. Desplegar automáticamente
+1. **Preparar el proyecto**
+   ```bash
+   # Asegúrate de que todo esté sincronizado
+   npx prisma generate
+   npx prisma db push
+   ```
 
-### Otros Proveedores
+2. **Desplegar en Vercel**
+   - Conecta tu repositorio a [Vercel](https://vercel.com)
+   - Agrega las variables de entorno:
+     - `DATABASE_URL` - URL de conexión de Supabase (pooling)
+     - `DIRECT_URL` - URL directa de Supabase
+     - `NEXTAUTH_URL` - Tu URL de producción (ej: https://tu-app.vercel.app)
+     - `NEXTAUTH_SECRET` - Genera uno con `openssl rand -base64 32`
+   - Despliega automáticamente
 
-- **Netlify**: Compatible con Next.js
-- **Railway**: Con soporte para PostgreSQL
-- **DigitalOcean**: App Platform
+3. **Verificar conexión**
+   - La base de datos se conectará automáticamente a Supabase
+   - No necesitas ejecutar migraciones adicionales
+   - El proyecto inicia con base de datos vacía
+
+### Otras Opciones de Despliegue
+
+- **Netlify**: Compatible con Next.js + Supabase
+- **Railway**: Alternativa con soporte PostgreSQL integrado
+- **DigitalOcean App Platform**: Despliegue con contenedores
 
 ## Monitoreo y Analytics
 

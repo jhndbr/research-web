@@ -1,73 +1,29 @@
-### 📸 Directorio de Imágenes
+# Añade tus propias imágenes aquí
 
-Este directorio contiene todas las imágenes utilizadas en el sitio web.
+Esta carpeta es para almacenar imágenes estáticas que se usarán en tu sitio web.
 
-#### 📁 Estructura recomendada:
+## Ejemplos de uso:
 
-```
-images/
-├── 20190708_dr_cristiano.jpg    # Foto principal del Dr. Cristiano
-├── dr_cristiano.jpg             # Foto alternativa
-├── book1.jpg                    # Portada libro 1 (Reino Unido)
-├── book2.jpg                    # Portada libro 2 (Portugal)  
-├── book3.jpg                    # Portada libro 3 (España)
-├── logos/                       # Logos y iconos
-│   ├── logo.png
-│   └── favicon.ico
-├── research/                    # Imágenes relacionadas con investigación
-└── backgrounds/                 # Fondos y texturas
-    └── grid.svg
+- Fotos de perfil
+- Imágenes de portadas de libros
+- Ilustraciones para artículos de investigación
+- Logos y recursos visuales del sitio
+
+Las imágenes aquí se pueden referenciar desde tu código como:
+
+```jsx
+<img src="/images/tu-imagen.jpg" alt="Descripción" />
 ```
 
-#### 🔄 Migración desde el sitio original:
+O con el componente Image de Next.js:
 
-Para migrar las imágenes del sitio original, copia los archivos desde:
-```
-/home/jhon/Descargas/cristianodeangelis.github.io/image/
-```
-
-#### 📋 Lista de archivos a copiar:
-
-- `20190708_dr_cristiano.jpg` - Foto principal del perfil
-- `dr_cristiano.jpg` - Foto alternativa
-- `book1.jpg` - Portada del libro en inglés
-- `book2.jpg` - Portada del libro en portugués
-- `book3.jpg` - Portada del libro en español
-
-#### 🖼️ Optimización de imágenes:
-
-Next.js optimiza automáticamente las imágenes, pero para mejor rendimiento:
-
-1. **Formato recomendado**: WebP o AVIF para navegadores modernos
-2. **Tamaños**: Múltiples resoluciones para responsive design
-3. **Compresión**: Sin pérdida de calidad visible
-
-#### 📖 Uso en componentes:
-
-```tsx
+```jsx
 import Image from 'next/image'
 
-// Imagen optimizada
-<Image
-  src="/images/20190708_dr_cristiano.jpg"
-  alt="Dr. Cristiano De Angelis"
-  width={200}
-  height={200}
-  className="rounded-full"
-  priority // Para imágenes above-the-fold
+<Image 
+  src="/images/tu-imagen.jpg" 
+  alt="Descripción" 
+  width={500} 
+  height={300} 
 />
 ```
-
-#### ⚡ Performance:
-
-- **Lazy loading**: Automático para imágenes fuera del viewport
-- **Responsive**: Tamaños adaptativos según dispositivo
-- **WebP/AVIF**: Formatos modernos cuando están disponibles
-- **Placeholder**: Blur o color mientras carga
-
-#### 🔒 Consideraciones:
-
-- ✅ Todas las imágenes deben tener texto alternativo (alt)
-- ✅ Usar dimensiones específicas para evitar layout shift
-- ✅ Optimizar tamaño de archivo antes de subir
-- ✅ Considerar derechos de autor y licencias
