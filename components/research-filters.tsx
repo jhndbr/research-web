@@ -94,7 +94,7 @@ export function ResearchFilters() {
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="inline-flex items-center px-4 py-2 rounded-md bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center px-4 py-2 rounded-md bg-card border border-border text-foreground hover:bg-accent transition-colors"
         >
           <Filter className="h-4 w-4 mr-2" />
           {showFilters ? 'Ocultar filtros' : 'Mostrar filtros'}
@@ -105,7 +105,7 @@ export function ResearchFilters() {
             variant="ghost"
             size="sm"
             onClick={clearFilters}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-muted-foreground hover:text-foreground"
           >
             <X className="h-4 w-4 mr-1" />
             Limpiar filtros
@@ -117,33 +117,33 @@ export function ResearchFilters() {
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2 mb-4">
           {activeFilters.continente !== 'todos' && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-700 border border-primary-200">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
               {activeFilters.continente}
               <button
                 onClick={() => updateFilter('continente', 'todos')}
-                className="ml-2 hover:text-primary-900"
+                className="ml-2 hover:text-primary/80"
               >
                 <X className="h-3 w-3" />
               </button>
             </span>
           )}
           {activeFilters.especialidad !== 'todas' && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-700 border border-primary-200">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
               {activeFilters.especialidad}
               <button
                 onClick={() => updateFilter('especialidad', 'todas')}
-                className="ml-2 hover:text-primary-900"
+                className="ml-2 hover:text-primary/80"
               >
                 <X className="h-3 w-3" />
               </button>
             </span>
           )}
           {activeFilters.pais !== 'todos' && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-700 border border-primary-200">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
               {activeFilters.pais}
               <button
                 onClick={() => updateFilter('pais', 'todos')}
-                className="ml-2 hover:text-primary-900"
+                className="ml-2 hover:text-primary/80"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -158,13 +158,13 @@ export function ResearchFilters() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Continente */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Continente
               </label>
               <select
                 value={activeFilters.continente}
                 onChange={(e) => updateFilter('continente', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 border border-border rounded-md text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
               >
                 {continents.map((continent) => (
                   <option key={continent} value={continent}>
@@ -176,13 +176,13 @@ export function ResearchFilters() {
 
             {/* Especialidad */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Especialidad
               </label>
               <select
                 value={activeFilters.especialidad}
                 onChange={(e) => updateFilter('especialidad', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 border border-border rounded-md text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
               >
                 {specialties.map((specialty) => (
                   <option key={specialty} value={specialty}>
@@ -194,13 +194,13 @@ export function ResearchFilters() {
 
             {/* País */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 País
               </label>
               <select
                 value={activeFilters.pais}
                 onChange={(e) => updateFilter('pais', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 border border-border rounded-md text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
               >
                 {countries.map((country) => (
                   <option key={country} value={country}>

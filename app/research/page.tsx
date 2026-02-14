@@ -62,51 +62,51 @@ export default async function ResearchPage({
   const papers = await getResearchPapers(searchParams)
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-background">
       <Navbar />
       
       <div className="pt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header */}
-          <div className="text-center mb-16 pb-8 border-b border-gray-200">
-            <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16 pb-8 border-b border-border">
+            <h1 className="text-4xl font-serif font-bold text-foreground mb-4">
               Research Publications
             </h1>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
               Academic research across multiple countries and disciplines
             </p>
             
             {/* Academic Metrics */}
             <div className="flex justify-center items-center gap-8 flex-wrap text-sm">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">{papers.length}</div>
-                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Publications</div>
+                <div className="text-2xl font-bold text-foreground mb-1">{papers.length}</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Publications</div>
               </div>
-              <div className="h-8 w-px bg-gray-300" />
+              <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">15</div>
-                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Countries</div>
+                <div className="text-2xl font-bold text-foreground mb-1">15</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Countries</div>
               </div>
-              <div className="h-8 w-px bg-gray-300" />
+              <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">6</div>
-                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Continents</div>
+                <div className="text-2xl font-bold text-foreground mb-1">6</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Continents</div>
               </div>
-              <div className="h-8 w-px bg-gray-300" />
+              <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900 mb-1">7</div>
-                <div className="text-xs uppercase tracking-wider text-gray-600 font-medium">Specialties</div>
+                <div className="text-2xl font-bold text-foreground mb-1">7</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Specialties</div>
               </div>
             </div>
           </div>
 
           {/* Filters */}
-          <Suspense fallback={<div className="text-center text-gray-600">Loading filters...</div>}>
+          <Suspense fallback={<div className="text-center text-muted-foreground">Loading filters...</div>}>
             <ResearchFilters />
           </Suspense>
 
           {/* Results */}
-          <Suspense fallback={<div className="text-center text-gray-600">Loading research papers...</div>}>
+          <Suspense fallback={<div className="text-center text-muted-foreground">Loading research papers...</div>}>
             <ResearchGrid papers={papers} />
           </Suspense>
         </div>

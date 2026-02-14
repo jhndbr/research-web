@@ -63,11 +63,11 @@
 
 /* Card styles */
 .glass {
-  @apply bg-white border border-gray-200;
+  @apply bg-card border border-border;
 }
 
 .glass-card {
-  @apply bg-white border border-gray-200 rounded-lg shadow-md;
+  @apply bg-card border border-border rounded-lg shadow-md;
   transition: box-shadow 0.2s ease;
 }
 
@@ -77,7 +77,7 @@
 
 /* Text styles */
 .gradient-text {
-  @apply text-primary-900;
+  @apply text-foreground;
 }
 
 /* Custom scrollbar */
@@ -86,15 +86,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-muted;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 rounded;
+  @apply bg-muted-foreground/40 rounded;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
+  @apply bg-muted-foreground/60;
 }
 
 /* Academic paper card */
@@ -104,7 +104,7 @@
 
 /* Navigation styles */
 .nav-blur {
-  @apply bg-white border-b border-gray-200 shadow-sm;
+  @apply bg-background/80 backdrop-blur-md border-b border-border shadow-sm;
 }
 
 /* Loading animations */
@@ -113,7 +113,7 @@
 }
 
 .loading-dots span {
-  @apply w-2 h-2 mx-1 bg-white rounded-full animate-pulse;
+  @apply w-2 h-2 mx-1 bg-foreground rounded-full animate-pulse;
   animation-delay: calc(var(--i) * 0.2s);
 }
 
@@ -124,11 +124,11 @@
 
 .form-floating input:focus + label,
 .form-floating input:not(:placeholder-shown) + label {
-  @apply transform -translate-y-4 scale-75 text-primary-300;
+  @apply transform -translate-y-4 scale-75 text-primary;
 }
 
 .form-floating label {
-  @apply absolute left-3 top-3 transition-all duration-200 pointer-events-none text-white/70;
+  @apply absolute left-3 top-3 transition-all duration-200 pointer-events-none text-muted-foreground;
 }
 
 /* Button ripple effect */
@@ -147,13 +147,13 @@
 
 /* Research filter tags */
 .filter-tag {
-  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 border border-gray-300 text-gray-700 transition-colors duration-150;
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-muted border border-border text-muted-foreground transition-colors duration-150;
 }
 
 .filter-tag:hover {
-  @apply bg-gray-200 border-gray-400;
+  @apply bg-accent border-border text-foreground;
 }
 
 .filter-tag.active {
-  @apply bg-primary-600 border-primary-600 text-white;
+  @apply bg-primary border-primary text-primary-foreground;
 }

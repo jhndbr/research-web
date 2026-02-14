@@ -1,52 +1,71 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useState, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
-import { Mail } from 'lucide-react'
+import { Lock, Mail, ArrowLeft, AlertCircle } from 'lucide-react'
 
 function SignInForm() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleEmailSignIn = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
+    setError('')
+
     try {
-      await signIn('email', {
+      const result = await signIn('credentials', {
         email,
-        callbackUrl,
+        password,
+        redirect: false,
       })
-    } catch (error) {
-      console.error('Error signing in:', error)
+
+      if (result?.error) {
+        setError('Invalid email or password')
+      } else {
+        router.push(callbackUrl)
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Sign in to your account
+        <h2 className="mt-6 text-center text-3xl font-bold text-foreground">
+          Sign in
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-muted-foreground">
           Access admin features and manage content
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-md rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleEmailSignIn}>
+        <div className="bg-card text-card-foreground py-8 px-4 shadow-md rounded-lg border border-border sm:px-10">
+          {error && (
+            <div className="mb-4 flex items-center gap-2 rounded-md bg-destructive/10 border border-destructive/20 px-4 py-3 text-sm text-destructive">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-foreground">
                 Email address
               </label>
-              <div className="mt-1">
+              <div className="mt-1 relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   id="email"
                   name="email"
@@ -55,8 +74,28 @@ function SignInForm() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2 border border-input bg-background rounded-md shadow-sm placeholder-muted-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm"
                   placeholder="admin@cristianodeangelis.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-foreground">
+                Password
+              </label>
+              <div className="mt-1 relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="block w-full pl-10 pr-3 py-2 border border-input bg-background rounded-md shadow-sm placeholder-muted-foreground text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm"
+                  placeholder="••••••••"
                 />
               </div>
             </div>
@@ -68,55 +107,25 @@ function SignInForm() {
                 className="w-full flex justify-center items-center"
               >
                 {isLoading ? (
-                  'Sending link...'
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Signing in...
+                  </span>
                 ) : (
-                  <>
-                    <Mail className="mr-2 h-4 w-4" />
-                    Sign in with Email
-                  </>
+                  'Sign in'
                 )}
               </Button>
             </div>
           </form>
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => signIn('google', { callbackUrl })}
-                disabled={isLoading}
-              >
-                Google
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => signIn('github', { callbackUrl })}
-                disabled={isLoading}
-              >
-                GitHub
-              </Button>
-            </div>
-          </div>
-
           <div className="mt-6 text-center">
             <Button
               type="button"
               variant="ghost"
-              onClick={() => window.location.href = '/'}
+              onClick={() => router.push('/')}
+              className="text-muted-foreground hover:text-foreground"
             >
+              <ArrowLeft className="mr-2 h-4 w-4" />
               Back to home
             </Button>
           </div>
@@ -129,10 +138,10 @@ function SignInForm() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-foreground mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading...</p>
         </div>
       </div>
     }>
