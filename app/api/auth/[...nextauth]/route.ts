@@ -1,34 +1,10 @@
 import NextAuth from 'next-auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import GoogleProvider from 'next-auth/providers/google'
-import GitHubProvider from 'next-auth/providers/github'
 import { prisma } from '@/lib/prisma'
-
-const providers = []
-
-// Only add Google provider if credentials are configured
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  providers.push(
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    })
-  )
-}
-
-// Only add GitHub provider if credentials are configured
-if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
-  providers.push(
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    })
-  )
-}
 
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers,
+  providers: [],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
